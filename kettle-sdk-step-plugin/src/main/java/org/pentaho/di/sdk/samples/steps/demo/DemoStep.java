@@ -117,7 +117,7 @@ public class DemoStep extends BaseStep implements StepInterface {
         //TODO usar dialog para receber input do host, port e path
         data.host = "localhost";
         data.port = 8815;
-        data.path = "profiles";
+        data.path = "more_profiles";
         ApacheFlightConnection connection = ApacheFlightConnection.createFlightClient(allocator, data.host, data.port);
 
         FlightInfo info = connection.getFlightInfo(data.path);
@@ -130,6 +130,14 @@ public class DemoStep extends BaseStep implements StepInterface {
     
         System.out.println("Connected to server, client: " + connection.getClient());
         return true;
+  }
+
+  public void printInput( StepDataInterface sdi ) {
+      DemoStepData data = (DemoStepData) sdi;
+
+      for(Object[] row : data.input) {
+          log.logBasic(Arrays.deepToString(row));
+      }
   }
 
   /**
@@ -160,7 +168,17 @@ public class DemoStep extends BaseStep implements StepInterface {
     DemoStepData data = (DemoStepData) sdi;
 
     // get incoming row, getRow() potentially blocks waiting for more rows, returns null if no more rows expected
-    Object[] r = null;
+    Object[] r = getRow();
+    log.logBasic("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+      if ( r == null ) {
+          setOutputDone();
+          return false;
+      }
+
+      log.logBasic("=======SHOWING DATA==========");
+
+      printInput(data);
 
     // the "first" flag is inherited from the base step implementation
     // it is used to guard some processing tasks, like figuring out field indexes
@@ -188,6 +206,7 @@ public class DemoStep extends BaseStep implements StepInterface {
     Object[] outputRow = RowDataUtil.resizeArray( r, data.outputRowMeta.size() );
     outputRow[data.outputFieldIndex] = "Hello World!";
     log.logBasic(Arrays.deepToString(outputRow));
+    log.logBasic("BBBBBBBBBBBBBBBBBBBBBBBBBB");
 
     // put the row to the output row stream
     putRow( data.outputRowMeta, outputRow );
