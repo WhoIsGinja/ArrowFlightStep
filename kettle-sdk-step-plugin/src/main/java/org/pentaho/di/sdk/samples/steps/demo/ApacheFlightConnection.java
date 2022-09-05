@@ -201,8 +201,12 @@ public class ApacheFlightConnection implements AutoCloseable {
 
 
     @Override
-    public void close() throws Exception {
-        AutoCloseables.close(_client, _allocator);
+    public void close()  {
+        try {
+            AutoCloseables.close(_client, _allocator);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

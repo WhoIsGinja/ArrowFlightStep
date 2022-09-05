@@ -93,6 +93,25 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    */
   private static final Class<?> PKG = DemoStepMeta.class; // for i18n purposes
 
+
+  private String[] currency;
+
+  private String[] decimal;
+
+  private String[] group;
+
+  private String[] value;
+
+  private String[] fieldName;
+
+  private String[] fieldType;
+
+  private String[] fieldFormat;
+
+  private int[] fieldLength;
+
+  private int[] fieldPrecision;
+
   /**
    * Stores the name of the field added to the row-stream.
    */
@@ -148,7 +167,7 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    * to sensible defaults. The values set here will be used by Spoon when a new step is created.
    */
   public void setDefault() {
-    setOutputField( "demo_field" );
+    //setOutputField( "demo_field" );
   }
 
   /**
@@ -275,19 +294,24 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
 
     // a value meta object contains the meta data for a field
     ValueMetaInterface v = new ValueMetaString( outputField );
+    ValueMetaInterface v2 = new ValueMetaString( "outro" );
 
     // setting trim type to "both"
     v.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
 
     // the name of the step that adds this field
     v.setOrigin( name );
+    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+
 
     // modify the row structure and add the field this step generates
     inputRowMeta.addValueMeta( v );
+    inputRowMeta.addValueMeta( v2 );
   }
 
   /**
-   * This method is called when the user selects the "Verify Transformation" option in Spoon. 
+   * This method is called when the user selects the "Verify Transformation" option in Spoon.
    * A list of remarks is passed in that this method should add to. Each remark is a comment, warning, error, or ok.
    * The method should perform as many checks as necessary to catch design-time errors.
    *
@@ -303,7 +327,7 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    *   @param prev      the structure of the incoming row-stream
    *   @param input      names of steps sending input to the step
    *   @param output    names of steps this step is sending output to
-   *   @param info      fields coming in from info steps 
+   *   @param info      fields coming in from info steps
    *   @param metaStore  metaStore to optionally read from
    */
   public void check( List<CheckResultInterface> remarks, TransMeta transMeta, StepMeta stepMeta, RowMetaInterface prev,
@@ -321,5 +345,17 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
               BaseMessages.getString( PKG, "Demo.CheckResult.ReceivingRows.ERROR" ), stepMeta );
       remarks.add( cr );
     }
+  }
+
+  public String[] getFieldName() {
+    return fieldName;
+  }
+
+  /**
+   * @param fieldName
+   *          The fieldName to set.
+   */
+  public void setFieldName( String[] fieldName ) {
+    this.fieldName = fieldName;
   }
 }

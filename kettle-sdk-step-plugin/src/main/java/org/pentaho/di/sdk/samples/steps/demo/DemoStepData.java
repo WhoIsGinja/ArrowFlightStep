@@ -25,9 +25,15 @@ package org.pentaho.di.sdk.samples.steps.demo;
 import org.pentaho.di.core.row.RowMetaInterface;
 import org.pentaho.di.trans.step.BaseStepData;
 import org.pentaho.di.trans.step.StepDataInterface;
+import org.apache.arrow.vector.types.pojo.Field;
+import org.apache.arrow.vector.types.pojo.Schema;
 
 import org.apache.arrow.flight.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.ArrayList;
+import java.util.List;
+
 
 
 
@@ -61,15 +67,26 @@ public class DemoStepData extends BaseStepData implements StepDataInterface {
   public FlightStream stream;
 
   public FlightDescriptor descriptor;
+
+  public long rowLimit;
+  public long rowsWritten;
   public ArrayList<Object[]> input;
 
-  public RowMetaInterface convertRowMeta;
-  public int rownr = 0;
+  public int rownr = 1;
 
-  RowMetaInterface outputRowMeta;
+  public Schema schema;
+
+  public List<Field> fields;
+
+  public RowMetaInterface outputRowMeta;
+
+  public Object[] outputRowData;
   int outputFieldIndex = -1;
+
+  public ReadWriteLock inputLock = new ReentrantReadWriteLock();
 
   public DemoStepData() {
     super();
   }
+
 }

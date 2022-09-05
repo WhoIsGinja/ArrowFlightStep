@@ -55,7 +55,6 @@ public class DemoStepTest {
   @Test
   public void testNoInput() throws KettleException {
     DemoStepMeta meta = new DemoStepMeta();
-    meta.setOutputField( "aFieldName" );
     TransMeta tm = TransTestFactory.generateTestTransformation( new Variables(), meta, STEP_NAME );
 
     List<RowMetaAndData> result = TransTestFactory.executeTestTransformation( tm, TransTestFactory.INJECTOR_STEPNAME,
@@ -69,7 +68,6 @@ public class DemoStepTest {
   @Test
   public void testInputNoFields() throws KettleException {
     DemoStepMeta meta = new DemoStepMeta();
-    meta.setOutputField( "aFieldName" );
     TransMeta tm = TransTestFactory.generateTestTransformation( new Variables(), meta, STEP_NAME );
 
     List<RowMetaAndData> result = TransTestFactory.executeTestTransformation( tm, TransTestFactory.INJECTOR_STEPNAME,
@@ -87,7 +85,6 @@ public class DemoStepTest {
   @Test
   public void testInput() throws KettleException {
     DemoStepMeta meta = new DemoStepMeta();
-    meta.setOutputField( "aFieldName" );
     TransMeta tm = TransTestFactory.generateTestTransformation( new Variables(), meta, STEP_NAME );
 
     List<RowMetaAndData> result = TransTestFactory.executeTestTransformation( tm, TransTestFactory.INJECTOR_STEPNAME,

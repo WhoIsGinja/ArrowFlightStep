@@ -135,7 +135,6 @@ public class DemoStepMetaTest {
     // that field must be a string and named as configured
     assertEquals( rowMeta.getValueMeta(0).getType(), ValueMetaInterface.TYPE_STRING );
     assertEquals( rowMeta.getValueMeta(0).getStorageType(), ValueMetaInterface.STORAGE_TYPE_NORMAL );
-    assertEquals( rowMeta.getFieldNames()[0], m.getOutputField() );
   }
 
   @Test
