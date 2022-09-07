@@ -77,7 +77,10 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
   private ArrowFlightStepMeta meta;
 
   // text field holding the name of the field to add to the row stream
-  private LabelText wHelloFieldName;
+  private LabelText wHostFieldName;
+  private LabelText wPortFieldName;
+  private LabelText wPathFieldName;
+
 
   /**
    * The constructor should simply invoke super() and save the incoming meta
@@ -162,21 +165,43 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     fdStepname.right = new FormAttachment( 100, 0 );
     wStepname.setLayoutData( fdStepname );
 
-    wHelloFieldName = new LabelText( shell, BaseMessages.getString( PKG, "Demo.FieldName.Label" ), null );
-    props.setLook( wHelloFieldName );
-    wHelloFieldName.addModifyListener( lsMod );
-    FormData fdValName = new FormData();
-    fdValName.left = new FormAttachment( 0, 0 );
-    fdValName.right = new FormAttachment( 100, 0 );
-    fdValName.top = new FormAttachment( wStepname, margin );
-    wHelloFieldName.setLayoutData( fdValName );
+    //mudar para host
+    wHostFieldName = new LabelText( shell, "Host", null );
+    props.setLook( wHostFieldName );
+    wHostFieldName.addModifyListener( lsMod );
+    FormData fdValNameHost = new FormData();
+    fdValNameHost.left = new FormAttachment( 0, 0 );
+    fdValNameHost.right = new FormAttachment( 100, 0 );
+    fdValNameHost.top = new FormAttachment( wStepname, margin );
+    wHostFieldName.setLayoutData( fdValNameHost );
+
+    //mudar para port
+    wPortFieldName = new LabelText( shell, "Port", null );
+    props.setLook( wPortFieldName );
+    wPortFieldName.addModifyListener( lsMod );
+    FormData fdValNamePort = new FormData();
+    fdValNamePort.left = new FormAttachment( 0, 0 );
+    fdValNamePort.right = new FormAttachment( 100, 0 );
+    fdValNamePort.top = new FormAttachment( wHostFieldName, margin );
+    wPortFieldName.setLayoutData( fdValNamePort );
+
+
+    //mudar para path
+    wPathFieldName = new LabelText( shell, "Path", null );
+    props.setLook( wPortFieldName );
+    wPathFieldName.addModifyListener( lsMod );
+    FormData fdValNamePath = new FormData();
+    fdValNamePath.left = new FormAttachment( 0, 0 );
+    fdValNamePath.right = new FormAttachment( 100, 0 );
+    fdValNamePath.top = new FormAttachment( wPortFieldName, margin );
+    wPathFieldName.setLayoutData( fdValNamePath );
 
     // OK and cancel buttons
     wOK = new Button( shell, SWT.PUSH );
     wOK.setText( BaseMessages.getString( PKG, "System.Button.OK" ) );
     wCancel = new Button( shell, SWT.PUSH );
     wCancel.setText( BaseMessages.getString( PKG, "System.Button.Cancel" ) );
-    setButtonPositions( new Button[] { wOK, wCancel }, margin, wHelloFieldName );
+    setButtonPositions( new Button[] { wOK, wCancel }, margin, wPathFieldName );
 
     // Add listeners for cancel and OK
     lsCancel = new Listener() {
@@ -199,7 +224,9 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
       }
     };
     wStepname.addSelectionListener( lsDef );
-    wHelloFieldName.addSelectionListener( lsDef );
+    wHostFieldName.addSelectionListener( lsDef );
+    wPortFieldName.addSelectionListener( lsDef );
+    wPathFieldName.addSelectionListener( lsDef );
 
     // Detect X or ALT-F4 or something that kills this window and cancel the dialog properly
     shell.addShellListener( new ShellAdapter() {
@@ -237,7 +264,9 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
    */
   private void populateDialog() {
     wStepname.selectAll();
-    //wHelloFieldName.setText( meta.getOutputField() );
+    wHostFieldName.setText( meta.getOutputField() );
+    wPortFieldName.setText( meta.getPortField() );
+    wPathFieldName.setText( meta.getPathField() );
   }
 
   /**
@@ -261,7 +290,9 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     // Setting to step name from the dialog control
     stepname = wStepname.getText();
     // Setting the  settings to the meta object
-    //meta.setOutputField( wHelloFieldName.getText() );
+    meta.setOutputField( wHostFieldName.getText() );
+    meta.setPortField( wPortFieldName.getText() );
+    meta.setPathField( wPathFieldName.getText() );
     // close the SWT dialog window
     dispose();
   }

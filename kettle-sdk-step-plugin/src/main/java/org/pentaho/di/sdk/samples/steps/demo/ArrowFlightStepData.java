@@ -23,6 +23,7 @@
 package org.pentaho.di.sdk.samples.steps.demo;
 
 import org.pentaho.di.core.row.RowMetaInterface;
+import org.pentaho.di.core.row.ValueMetaInterface;
 import org.pentaho.di.trans.step.BaseStepData;
 import org.pentaho.di.trans.step.StepDataInterface;
 import org.apache.arrow.vector.types.pojo.Field;
@@ -77,6 +78,8 @@ public class ArrowFlightStepData extends BaseStepData implements StepDataInterfa
   public Schema schema;
 
   public List<Field> fields;
+
+  public List<ValueMetaInterface> metas;
 
   public RowMetaInterface outputRowMeta;
 

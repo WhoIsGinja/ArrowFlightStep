@@ -213,8 +213,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
 
       if ( fields.get(i).getType() != null ) {
         ValueMetaInterface valueMeta = ValueMetaFactory.createValueMeta( meta.getFieldName()[i], valtype ); // build a value!
-        //TODO ver o que sao os defaults disto e meter hardcoded maybe PERGUNTAR AO ARISTIDES TMRW
 
+        //TODO ver o que sao os defaults disto e meter hardcoded maybe PERGUNTAR AO ARISTIDES TMRW
         /*valueMeta.setLength( meta.getFieldLength()[i] );
         valueMeta.setPrecision( meta.getFieldPrecision()[i] );
         valueMeta.setConversionMask( meta.getFieldFormat()[i] );
@@ -222,9 +222,6 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
         valueMeta.setGroupingSymbol( meta.getGroup()[i] );
         valueMeta.setDecimalSymbol( meta.getDecimal()[i] );
         valueMeta.setOrigin( origin );*/
-
-        ValueMetaInterface stringMeta =
-                ValueMetaFactory.cloneValueMeta( valueMeta, ValueMetaInterface.TYPE_STRING );
 
         rowMeta.addValueMeta( valueMeta );
         index++;
@@ -269,7 +266,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     }
   }
 
-  public Object[] getRowInput( StepMetaInterface smi, StepDataInterface sdi ) {
+  public Object[] getRowInput( StepMetaInterface smi, StepDataInterface sdi ) throws KettleException {
 
     waitUntilTransformationIsStarted();
 
@@ -290,8 +287,22 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     } finally {
       data.inputLock.readLock().unlock();
     }
+    Object[] bufferRow = data.outputRowMeta.cloneRow( row );
+    Object[] r = new Object[bufferRow.length];
 
-    return row;
+    for(int i = 0; i < bufferRow.length; i++) {
+
+      ValueMetaInterface valueMeta = data.outputRowMeta.getValueMeta(i);
+
+      ValueMetaInterface stringMeta =
+              ValueMetaFactory.cloneValueMeta( valueMeta, ValueMetaInterface.TYPE_STRING );
+
+      log.logBasic(" PICHA " + valueMeta.toString());
+
+      r[i] = valueMeta.convertData(stringMeta, bufferRow[i].toString());
+    }
+
+    return r;
   }
 
   /**
@@ -331,6 +342,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     if ( data.rowsWritten < data.rowLimit ) {
       bufferRow = getRowInput(smi, sdi);
       r = data.outputRowMeta.cloneRow( bufferRow );
+      //converter as drenas aqui
+      //sque fazer uma função ou meter na outra logo
     } else {
       log.logBasic("entrou no fim");
       setOutputDone();

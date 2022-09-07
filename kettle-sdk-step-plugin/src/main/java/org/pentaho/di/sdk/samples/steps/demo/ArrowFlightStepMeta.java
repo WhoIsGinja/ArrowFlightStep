@@ -73,11 +73,11 @@ import org.w3c.dom.Node;
  */
 
 @Step(
-        id = "DemoStep",
-        name = "DemoStep.Name",
-        description = "DemoStep.TooltipDesc",
+        id = "ArrowFlightInput",
+        name = "Arrow Flight Input",
+        description = "",
         image = "org/pentaho/di/sdk/samples/steps/demo/resources/demo.svg",
-        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Transform",
+        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Input",
         i18nPackageName = "org.pentaho.di.sdk.samples.steps.demo",
         documentationUrl = "DemoStep.DocumentationURL",
         casesUrl = "DemoStep.CasesURL",
@@ -93,30 +93,21 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
    */
   private static final Class<?> PKG = ArrowFlightStepMeta.class; // for i18n purposes
 
-
-  private String[] currency;
-
-  private String[] decimal;
-
-  private String[] group;
-
-  private String[] value;
-
   private String[] fieldName;
-
-  private String[] fieldType;
-
-  private String[] fieldFormat;
-
-  private int[] fieldLength;
-
-  private int[] fieldPrecision;
 
   /**
    * Stores the name of the field added to the row-stream.
    */
   @Injection( name = "OUTPUT_FIELD" )
   private String outputField;
+
+  @Injection( name = "PORT_FIELD" )
+  private String portField;
+
+  @Injection( name = "PATH_FIELD" )
+  private String pathField;
+
+
 
   /**
    * Constructor should call super() to make sure the base class has a chance to initialize properly.
@@ -167,23 +158,31 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
    * to sensible defaults. The values set here will be used by Spoon when a new step is created.
    */
   public void setDefault() {
-    //setOutputField( "demo_field" );
+    setOutputField( "localhost" );
+    setPortField( "8815" );
+    setPathField( "more_profiles" );
   }
 
-  /**
-   * Getter for the name of the field added by this step
-   * @return the name of the field added
-   */
+
   public String getOutputField() {
     return outputField;
   }
-
-  /**
-   * Setter for the name of the field added by this step
-   * @param outputField the name of the field added
-   */
   public void setOutputField( String outputField ) {
     this.outputField = outputField;
+  }
+
+  public String getPortField() {
+    return portField;
+  }
+  public void setPortField( String portField ) {
+    this.portField = portField;
+  }
+
+  public String getPathField() {
+    return pathField;
+  }
+  public void setPathField( String pathField ) {
+    this.pathField = pathField;
   }
 
   /**
