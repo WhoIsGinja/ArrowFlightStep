@@ -1,3 +1,3 @@
-org\pentaho\di\sdk\samples\steps\demo\DemoStepMetaTest.class
-org\pentaho\di\sdk\samples\steps\demo\DemoStepDataTest.class
-org\pentaho\di\sdk\samples\steps\demo\DemoStepTest.class
+org\pentaho\di\sdk\samples\steps\demo\ArrowFlightStepTest.class
+org\pentaho\di\sdk\samples\steps\demo\ArrowFlightStepDataTest.class
+org\pentaho\di\sdk\samples\steps\demo\ArrowFlightStepMetaTest.class

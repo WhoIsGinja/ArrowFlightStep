@@ -73,25 +73,27 @@ import org.w3c.dom.Node;
  */
 
 @Step(
-        id = "DemoStep",
-        name = "DemoStep.Name",
-        description = "DemoStep.TooltipDesc",
+        id = "ArrowFlightInput",
+        name = "Arrow Flight Input",
+        description = "",
         image = "org/pentaho/di/sdk/samples/steps/demo/resources/demo.svg",
-        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Transform",
+        categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Input",
         i18nPackageName = "org.pentaho.di.sdk.samples.steps.demo",
         documentationUrl = "DemoStep.DocumentationURL",
         casesUrl = "DemoStep.CasesURL",
         forumUrl = "DemoStep.ForumURL"
 )
 @InjectionSupported( localizationPrefix = "DemoStepMeta.Injection." )
-public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
+public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterface {
 
   /**
    *  The PKG member is used when looking up internationalized strings.
    *  The properties file with localized keys is expected to reside in
    *  {the package of the class specified}/messages/messages_{locale}.properties
    */
-  private static final Class<?> PKG = DemoStepMeta.class; // for i18n purposes
+  private static final Class<?> PKG = ArrowFlightStepMeta.class; // for i18n purposes
+
+  private String[] fieldName;
 
   /**
    * Stores the name of the field added to the row-stream.
@@ -99,10 +101,18 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
   @Injection( name = "OUTPUT_FIELD" )
   private String outputField;
 
+  @Injection( name = "PORT_FIELD" )
+  private String portField;
+
+  @Injection( name = "PATH_FIELD" )
+  private String pathField;
+
+
+
   /**
    * Constructor should call super() to make sure the base class has a chance to initialize properly.
    */
-  public DemoStepMeta() {
+  public ArrowFlightStepMeta() {
     super();
   }
 
@@ -117,7 +127,7 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    * @return       new instance of a dialog for this step
    */
   public StepDialogInterface getDialog( Shell shell, StepMetaInterface meta, TransMeta transMeta, String name ) {
-    return new DemoStepDialog( shell, meta, transMeta, name );
+    return new ArrowFlightStepDialog( shell, meta, transMeta, name );
   }
 
   /**
@@ -133,14 +143,14 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    */
   public StepInterface getStep( StepMeta stepMeta, StepDataInterface stepDataInterface, int cnr, TransMeta transMeta,
                                 Trans disp ) {
-    return new DemoStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
+    return new ArrowFlightStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
   }
 
   /**
    * Called by PDI to get a new instance of the step data class.
    */
   public StepDataInterface getStepData() {
-    return new DemoStepData();
+    return new ArrowFlightStepData();
   }
 
   /**
@@ -149,22 +159,30 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    */
   public void setDefault() {
     setOutputField( "demo_field" );
+    /*setPortField( "8815" );
+    setPathField( "more_profiles" );*/
   }
 
-  /**
-   * Getter for the name of the field added by this step
-   * @return the name of the field added
-   */
+
   public String getOutputField() {
     return outputField;
   }
-
-  /**
-   * Setter for the name of the field added by this step
-   * @param outputField the name of the field added
-   */
   public void setOutputField( String outputField ) {
     this.outputField = outputField;
+  }
+
+  public String getPortField() {
+    return portField;
+  }
+  public void setPortField( String portField ) {
+    this.portField = portField;
+  }
+
+  public String getPathField() {
+    return pathField;
+  }
+  public void setPathField( String pathField ) {
+    this.pathField = pathField;
   }
 
   /**
@@ -275,19 +293,24 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
 
     // a value meta object contains the meta data for a field
     ValueMetaInterface v = new ValueMetaString( outputField );
+    ValueMetaInterface v2 = new ValueMetaString( "outro" );
 
     // setting trim type to "both"
     v.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
 
     // the name of the step that adds this field
     v.setOrigin( name );
+    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+
 
     // modify the row structure and add the field this step generates
     inputRowMeta.addValueMeta( v );
+    inputRowMeta.addValueMeta( v2 );
   }
 
   /**
-   * This method is called when the user selects the "Verify Transformation" option in Spoon. 
+   * This method is called when the user selects the "Verify Transformation" option in Spoon.
    * A list of remarks is passed in that this method should add to. Each remark is a comment, warning, error, or ok.
    * The method should perform as many checks as necessary to catch design-time errors.
    *
@@ -303,7 +326,7 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
    *   @param prev      the structure of the incoming row-stream
    *   @param input      names of steps sending input to the step
    *   @param output    names of steps this step is sending output to
-   *   @param info      fields coming in from info steps 
+   *   @param info      fields coming in from info steps
    *   @param metaStore  metaStore to optionally read from
    */
   public void check( List<CheckResultInterface> remarks, TransMeta transMeta, StepMeta stepMeta, RowMetaInterface prev,
@@ -321,5 +344,17 @@ public class DemoStepMeta extends BaseStepMeta implements StepMetaInterface {
               BaseMessages.getString( PKG, "Demo.CheckResult.ReceivingRows.ERROR" ), stepMeta );
       remarks.add( cr );
     }
+  }
+
+  public String[] getFieldName() {
+    return fieldName;
+  }
+
+  /**
+   * @param fieldName
+   *          The fieldName to set.
+   */
+  public void setFieldName( String[] fieldName ) {
+    this.fieldName = fieldName;
   }
 }
