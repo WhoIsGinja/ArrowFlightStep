@@ -165,8 +165,8 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     fdStepname.right = new FormAttachment( 100, 0 );
     wStepname.setLayoutData( fdStepname );
 
-    //mudar para host
-    wHostFieldName = new LabelText( shell, "Host", null );
+    //change to host
+    wHostFieldName = new LabelText( shell, "Output Field", null );
     props.setLook( wHostFieldName );
     wHostFieldName.addModifyListener( lsMod );
     FormData fdValNameHost = new FormData();
@@ -175,8 +175,8 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     fdValNameHost.top = new FormAttachment( wStepname, margin );
     wHostFieldName.setLayoutData( fdValNameHost );
 
-    //mudar para port
-    wPortFieldName = new LabelText( shell, "Port", null );
+    //future code for GUI
+    /*wPortFieldName = new LabelText( shell, "Port", null );
     props.setLook( wPortFieldName );
     wPortFieldName.addModifyListener( lsMod );
     FormData fdValNamePort = new FormData();
@@ -194,14 +194,14 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     fdValNamePath.left = new FormAttachment( 0, 0 );
     fdValNamePath.right = new FormAttachment( 100, 0 );
     fdValNamePath.top = new FormAttachment( wPortFieldName, margin );
-    wPathFieldName.setLayoutData( fdValNamePath );
+    wPathFieldName.setLayoutData( fdValNamePath );*/
 
     // OK and cancel buttons
     wOK = new Button( shell, SWT.PUSH );
     wOK.setText( BaseMessages.getString( PKG, "System.Button.OK" ) );
     wCancel = new Button( shell, SWT.PUSH );
     wCancel.setText( BaseMessages.getString( PKG, "System.Button.Cancel" ) );
-    setButtonPositions( new Button[] { wOK, wCancel }, margin, wPathFieldName );
+    setButtonPositions( new Button[] { wOK, wCancel }, margin, wHostFieldName );
 
     // Add listeners for cancel and OK
     lsCancel = new Listener() {
@@ -225,8 +225,8 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     };
     wStepname.addSelectionListener( lsDef );
     wHostFieldName.addSelectionListener( lsDef );
-    wPortFieldName.addSelectionListener( lsDef );
-    wPathFieldName.addSelectionListener( lsDef );
+    /*wPortFieldName.addSelectionListener( lsDef );
+    wPathFieldName.addSelectionListener( lsDef );*/
 
     // Detect X or ALT-F4 or something that kills this window and cancel the dialog properly
     shell.addShellListener( new ShellAdapter() {
@@ -265,8 +265,8 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
   private void populateDialog() {
     wStepname.selectAll();
     wHostFieldName.setText( meta.getOutputField() );
-    wPortFieldName.setText( meta.getPortField() );
-    wPathFieldName.setText( meta.getPathField() );
+    /*wPortFieldName.setText( meta.getPortField() );
+    wPathFieldName.setText( meta.getPathField() );*/
   }
 
   /**
@@ -291,8 +291,8 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     stepname = wStepname.getText();
     // Setting the  settings to the meta object
     meta.setOutputField( wHostFieldName.getText() );
-    meta.setPortField( wPortFieldName.getText() );
-    meta.setPathField( wPathFieldName.getText() );
+    /*meta.setPortField( wPortFieldName.getText() );
+    meta.setPathField( wPathFieldName.getText() );*/
     // close the SWT dialog window
     dispose();
   }

@@ -158,9 +158,9 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
    * to sensible defaults. The values set here will be used by Spoon when a new step is created.
    */
   public void setDefault() {
-    setOutputField( "localhost" );
-    setPortField( "8815" );
-    setPathField( "more_profiles" );
+    setOutputField( "demo_field" );
+    /*setPortField( "8815" );
+    setPathField( "more_profiles" );*/
   }
 
 
