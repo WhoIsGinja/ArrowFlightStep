@@ -163,6 +163,8 @@ public class ApacheFlightConnection implements AutoCloseable {
     public FlightClient getClient() { return _client; }
     public Location getLocation() { return _location; }
 
+    public List<Field> getPDIFields(FlightStream stream) { return stream.getSchema().getFields(); }
+
 
     public FlightStream getFlightStream(String path, CallOption... options) {
         return _client.getStream(new Ticket(

@@ -121,40 +121,15 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       }
       // Add any step-specific initialization that may be needed here
 
-
+      //establishArrowConnection(meta, data);
       BufferAllocator allocator = new RootAllocator();
-      //TODO usar dialog para receber input do host, port e path
-      data.host = "localhost";
-      data.port = 8815;
-      data.path = "more_profiles";
-      data.connection = ApacheFlightConnection.createFlightClient(allocator, data.host, data.port);
+      //TODO deixar de ser hadcoded, para receber da GUI (alocados no meta)
+      data.connection = ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
 
-      FlightInfo info = data.connection.getFlightInfo(data.path);
-
-      data.stream = data.connection.getFlightStream(info.getDescriptor().getPath().get(0));
-      data.stream.getSchema();
+      getData(meta, data);
 
 
-      data.input = data.connection.getFlightData(data.stream);
-
-      //to make accountability for the first row being the fields names
-      data.rowLimit = data.input.size() - 1;
-      data.rowsWritten = 0L;
-
-      log.logBasic("FLIGHT ROWS NO: " + data.rowLimit);
-
-      data.schema = data.stream.getSchema();
-      data.fields = data.schema.getFields();
-
-      System.out.println("BBBBBBBBBBBBBBB :" + data.fields);
-      System.out.println(data.fields.get(0));
-
-      for(Field f : data.fields) {
-        System.out.println("ayyyy name: " + f.getName() + " type: " + f.getType());
-      }
-
-
-      System.out.println("Connected to server, client: " + data.connection.getClient());
+      log.logBasic("Connected to server, client: " + data.connection.getClient());
 
       // Create row metadata with all the values in it...
       List<CheckResultInterface> remarks = new ArrayList<CheckResultInterface>(); // stores the errors...
@@ -173,12 +148,33 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       data.outputRowMeta = outputRow.getRowMeta();
       log.logBasic(data.outputRowMeta.toString());
 
+
       return true;
     } catch ( Exception e ) {
       setErrors( 1L );
       logError( "Error initializing step", e );
       return false;
     }
+  }
+
+  public void getData(StepMetaInterface smi, StepDataInterface sdi) {
+    ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
+    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+
+
+    //TODO passar a receber da GUI, meta onde estao alocados
+    FlightInfo info = data.connection.getFlightInfo("more_profiles");
+
+    data.stream = data.connection.getFlightStream(info.getDescriptor().getPath().get(0));
+
+    data.fields = data.connection.getPDIFields(data.stream);
+    data.input = data.connection.getFlightData(data.stream);
+
+    //to make accountability for the first row being the fields names
+    data.rowLimit = data.input.size() - 1;
+    data.rowsWritten = 0L;
+
+    log.logBasic("FLIGHT ROWS NO: " + data.rowLimit);
   }
 
   //TODO meter os nomes certos nos headers
@@ -188,7 +184,6 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
 
     System.out.println("NUMBER OF COLS:  " + fields.size());
     Object[] rowData = new Object[fields.size()+ 2];
-    int index = 0;
 
     String[] fieldnames = new String[fields.size()];
 
@@ -202,11 +197,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     System.out.println(Arrays.toString(meta.getFieldName()));
 
 
-    //TODO alterar o for para passar a usar o data.fields e meter defaults para isto converter
-    System.out.println("WQRWQREWQRWQRWQEREWQR");
     System.out.println("tamanho fields: " + fields.size());
     for ( int i = 0; i < fields.size(); i++ ) {
-      System.out.println("loopi" + fields.get(i).getType().toString());
 
       int valtype = getValType(fields.get(i).getType().toString());
       System.out.println("FIELDTYPE: " + fields.get(i).getType().toString() + "  VALTYPE: " + valtype);
@@ -214,17 +206,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       if ( fields.get(i).getType() != null ) {
         ValueMetaInterface valueMeta = ValueMetaFactory.createValueMeta( meta.getFieldName()[i], valtype ); // build a value!
 
-        //TODO ver o que sao os defaults disto e meter hardcoded maybe PERGUNTAR AO ARISTIDES TMRW
-        /*valueMeta.setLength( meta.getFieldLength()[i] );
-        valueMeta.setPrecision( meta.getFieldPrecision()[i] );
-        valueMeta.setConversionMask( meta.getFieldFormat()[i] );
-        valueMeta.setCurrencySymbol( meta.getCurrency()[i] );
-        valueMeta.setGroupingSymbol( meta.getGroup()[i] );
-        valueMeta.setDecimalSymbol( meta.getDecimal()[i] );
-        valueMeta.setOrigin( origin );*/
 
         rowMeta.addValueMeta( valueMeta );
-        index++;
       }
     }
 
@@ -297,7 +280,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       ValueMetaInterface stringMeta =
               ValueMetaFactory.cloneValueMeta( valueMeta, ValueMetaInterface.TYPE_STRING );
 
-      log.logBasic(" PICHA " + valueMeta.toString());
+      log.logBasic(" value meta " + valueMeta.toString());
 
       r[i] = valueMeta.convertData(stringMeta, bufferRow[i].toString());
     }
@@ -342,12 +325,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     if ( data.rowsWritten < data.rowLimit ) {
       bufferRow = getRowInput(smi, sdi);
       r = data.outputRowMeta.cloneRow( bufferRow );
-      //converter as drenas aqui
-      //sque fazer uma função ou meter na outra logo
     } else {
-      log.logBasic("entrou no fim");
       setOutputDone();
-      log.logBasic("yeeet");
       return false;
     }
 
@@ -358,17 +337,6 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       log.logBasic("conteudo: " + o);
     }
 
-    // safely add the string "Hello World!" at the end of the output row
-    // the row array will be resized if necessary
-    /*Object[] outputRow = RowDataUtil.resizeArray( r, data.outputRowMeta.size() );
-    //outputRow[data.outputFieldIndex] = "Hello World!";
-    outputRow[data.outputFieldIndex] = data.input.get(data.rownr)[0];
-    data.rownr++;
-    log.logBasic(Arrays.deepToString(outputRow));
-    log.logBasic("BBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-    // put the row to the output row stream
-    putRow( data.outputRowMeta, outputRow );*/
 
     // log progress if it is time to to so
     if ( checkFeedback( getLinesRead() ) ) {

@@ -61,13 +61,7 @@ import java.util.List;
 public class ArrowFlightStepData extends BaseStepData implements StepDataInterface {
 
   public ApacheFlightConnection connection;
-  public String host;
-  public int port;
-
-  public String path;
   public FlightStream stream;
-
-  public FlightDescriptor descriptor;
 
   public long rowLimit;
   public long rowsWritten;
@@ -75,15 +69,10 @@ public class ArrowFlightStepData extends BaseStepData implements StepDataInterfa
 
   public int rownr = 1;
 
-  public Schema schema;
-
   public List<Field> fields;
-
-  public List<ValueMetaInterface> metas;
 
   public RowMetaInterface outputRowMeta;
 
-  public Object[] outputRowData;
   int outputFieldIndex = -1;
 
   public ReadWriteLock inputLock = new ReentrantReadWriteLock();

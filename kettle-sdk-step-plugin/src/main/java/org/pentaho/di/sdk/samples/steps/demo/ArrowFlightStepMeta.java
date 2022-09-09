@@ -22,8 +22,14 @@
 
 package org.pentaho.di.sdk.samples.steps.demo;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.arrow.flight.FlightInfo;
+import org.apache.arrow.flight.FlightStream;
+import org.apache.arrow.memory.BufferAllocator;
+import org.apache.arrow.memory.RootAllocator;
+import org.apache.arrow.vector.types.pojo.Schema;
 import org.eclipse.swt.widgets.Shell;
 import org.pentaho.di.core.CheckResult;
 import org.pentaho.di.core.CheckResultInterface;
@@ -52,6 +58,8 @@ import org.pentaho.di.trans.step.StepInterface;
 import org.pentaho.di.trans.step.StepMeta;
 import org.pentaho.di.trans.step.StepMetaInterface;
 import org.pentaho.metastore.api.IMetaStore;
+import org.apache.arrow.vector.types.pojo.Field;
+
 import org.w3c.dom.Node;
 
 /**
@@ -107,7 +115,7 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
   @Injection( name = "PATH_FIELD" )
   private String pathField;
 
-
+  private Schema schema;
 
   /**
    * Constructor should call super() to make sure the base class has a chance to initialize properly.
@@ -170,6 +178,19 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
   public void setOutputField( String outputField ) {
     this.outputField = outputField;
   }
+
+  public void setSchema() {
+    //TODO deixar de estar hardcoded
+    BufferAllocator allocator = new RootAllocator();
+    ApacheFlightConnection connection = ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
+
+    FlightInfo info = connection.getFlightInfo("more_profiles");
+
+    FlightStream stream = connection.getFlightStream(info.getDescriptor().getPath().get(0));
+    schema = stream.getSchema();
+  }
+
+  public Schema getSchema() { return schema; }
 
   public String getPortField() {
     return portField;
@@ -290,23 +311,24 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
     /*
      * This implementation appends the outputField to the row-stream
      */
+    setSchema();
 
-    // a value meta object contains the meta data for a field
-    ValueMetaInterface v = new ValueMetaString( outputField );
-    ValueMetaInterface v2 = new ValueMetaString( "outro" );
+    List<Field> fields = schema.getFields();
 
-    // setting trim type to "both"
-    v.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
-    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+    //System.out.println("GET FIELDS: "  + Arrays.toString(fieldName));
+    for(int i = 0; i < fields.size(); i++) {
+      // a value meta object contains the meta data for a field
+      ValueMetaInterface v = new ValueMetaString( fields.get(i).getName() );
 
-    // the name of the step that adds this field
-    v.setOrigin( name );
-    v2.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
+      // setting trim type to "both"
+      v.setTrimType( ValueMetaInterface.TRIM_TYPE_BOTH );
 
+      // the name of the step that adds this field
+      v.setOrigin( name );
 
-    // modify the row structure and add the field this step generates
-    inputRowMeta.addValueMeta( v );
-    inputRowMeta.addValueMeta( v2 );
+      // modify the row structure and add the field this step generates
+      inputRowMeta.addValueMeta( v );
+    }
   }
 
   /**
