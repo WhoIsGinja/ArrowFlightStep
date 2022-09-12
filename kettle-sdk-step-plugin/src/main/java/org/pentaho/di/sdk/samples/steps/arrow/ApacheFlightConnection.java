@@ -1,40 +1,19 @@
-package org.pentaho.di.sdk.samples.steps.demo;
+package org.pentaho.di.sdk.samples.steps.arrow;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.Consumer;
 
-import javax.annotation.Nullable;
-
-import com.google.common.collect.ImmutableMap;
 import org.apache.arrow.flight.*;
-import org.apache.arrow.flight.auth.BasicServerAuthHandler;
 import org.apache.arrow.memory.BufferAllocator;
 import org.apache.arrow.memory.RootAllocator;
 import org.apache.arrow.vector.*;
-import org.apache.arrow.vector.types.pojo.ArrowType;
 import org.apache.arrow.vector.types.pojo.Field;
-import org.apache.arrow.vector.types.pojo.FieldType;
 import org.apache.arrow.vector.types.pojo.Schema;
 import org.apache.arrow.flight.FlightClient;
 import org.apache.arrow.flight.FlightDescriptor;
 import org.apache.arrow.flight.Location;
-import org.apache.arrow.flight.auth2.BasicAuthCredentialWriter;
-import org.apache.arrow.flight.auth2.BearerCredentialWriter;
-import org.apache.arrow.flight.auth2.ClientBearerHeaderHandler;
-import org.apache.arrow.flight.auth2.ClientIncomingAuthHeaderMiddleware;
-import org.apache.arrow.flight.client.ClientCookieMiddleware;
-import org.apache.arrow.flight.grpc.CredentialCallOption;
 import org.apache.arrow.util.AutoCloseables;
-import org.apache.arrow.util.VisibleForTesting;
-import org.apache.arrow.vector.ipc.ArrowStreamWriter;
-import org.apache.arrow.vector.ipc.message.ArrowRecordBatch;
 
 
 import org.apache.arrow.vector.ipc.ArrowStreamReader;

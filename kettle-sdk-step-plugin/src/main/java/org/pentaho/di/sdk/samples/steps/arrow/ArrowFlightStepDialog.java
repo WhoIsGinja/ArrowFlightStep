@@ -20,7 +20,7 @@
  *
  ******************************************************************************/
 
-package org.pentaho.di.sdk.samples.steps.demo;
+package org.pentaho.di.sdk.samples.steps.arrow;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -47,21 +47,6 @@ import org.pentaho.di.ui.trans.step.BaseStepDialog;
 import org.pentaho.di.trans.step.BaseStepMeta;
 import org.pentaho.di.trans.step.StepDialogInterface;
 
-/**
- * This class is part of the demo step plug-in implementation.
- * It demonstrates the basics of developing a plug-in step for PDI.
- *
- * The demo step adds a new string field to the row stream and sets its
- * value to "Hello World!". The user may select the name of the new field.
- *
- * This class is the implementation of StepDialogInterface.
- * Classes implementing this interface need to:
- *
- * - build and open a SWT dialog displaying the step's settings (stored in the step's meta object)
- * - write back any changes the user makes to the step's meta object
- * - report whether the user changed any settings when confirming the dialog
- *
- */
 public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogInterface {
 
   /**
@@ -141,7 +126,7 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     formLayout.marginWidth = Const.FORM_MARGIN;
     formLayout.marginHeight = Const.FORM_MARGIN;
     shell.setLayout( formLayout );
-    shell.setText( BaseMessages.getString( PKG, "Demo.Shell.Title" ) );
+    shell.setText( BaseMessages.getString( PKG, "Arrow.Shell.Title" ) );
     int middle = props.getMiddlePct();
     int margin = Const.MARGIN;
 
@@ -165,8 +150,7 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
     fdStepname.right = new FormAttachment( 100, 0 );
     wStepname.setLayoutData( fdStepname );
 
-    //change to host
-    wHostFieldName = new LabelText( shell, "Output Field", null );
+    wHostFieldName = new LabelText( shell, BaseMessages.getString( PKG, "Arrow.FieldName.HostLabel" ), null );
     props.setLook( wHostFieldName );
     wHostFieldName.addModifyListener( lsMod );
     FormData fdValNameHost = new FormData();

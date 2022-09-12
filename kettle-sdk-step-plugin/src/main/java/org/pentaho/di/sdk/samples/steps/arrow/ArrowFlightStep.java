@@ -20,7 +20,7 @@
  *
  ******************************************************************************/
 
-package org.pentaho.di.sdk.samples.steps.demo;
+package org.pentaho.di.sdk.samples.steps.arrow;
 
 import org.pentaho.di.core.CheckResult;
 import org.pentaho.di.core.CheckResultInterface;
@@ -51,25 +51,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * This class is part of the demo step plug-in implementation.
- * It demonstrates the basics of developing a plug-in step for PDI.
- *
- * The demo step adds a new string field to the row stream and sets its
- * value to "Hello World!". The user may select the name of the new field.
- *
- * This class is the implementation of StepInterface.
- * Classes implementing this interface need to:
- *
- * - initialize the step
- * - execute the row processing logic
- * - dispose of the step
- *
- * Please do not create any local fields in a StepInterface class. Store any
- * information related to the processing logic in the supplied step data interface
- * instead.
- *
- */
 
 public class ArrowFlightStep extends BaseStep implements StepInterface {
 
@@ -113,8 +94,6 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
       ArrowFlightStepData data = (ArrowFlightStepData) sdi;
 
-      //TODO meter aqui tudo relacionado com iniciar conexao com a base de dados e cenas precisas para handling
-      //TODO error handling
       if ( !super.init( meta, data ) ) {
 
         return false;
@@ -135,15 +114,12 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
       List<CheckResultInterface> remarks = new ArrayList<CheckResultInterface>(); // stores the errors...
       RowMetaAndData outputRow = buildRow( meta, data.fields, remarks, getStepname() );
       if ( !remarks.isEmpty() ) {
-        //TODO mudar as mensagens de remarks, ou até dizer que um tipo está mal idk ou ate apagar isto tudo
         for ( int i = 0; i < remarks.size(); i++ ) {
           CheckResult cr = (CheckResult) remarks.get( i );
           logError( cr.getText() );
         }
         return false;
       }
-
-      //TODO meter aqui uma funcao que passe o meta da row ou uma lista com os field names e types para usar no getfields e ver como se faz o append no rowgenerator
 
       data.outputRowMeta = outputRow.getRowMeta();
       log.logBasic(data.outputRowMeta.toString());
@@ -177,7 +153,12 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
     log.logBasic("FLIGHT ROWS NO: " + data.rowLimit);
   }
 
-  //TODO meter os nomes certos nos headers
+  /**
+   * Method used to build the meta data of a row
+   * @param meta   step meta interface implementation, containing the step settings
+   * @param fields  list that contains the names and types of the columns of each row
+   * @returns RowMetaAndData structure that will contain the meta data of the input from the Flight Server
+   * */
   public static final RowMetaAndData buildRow(ArrowFlightStepMeta meta, List<Field> fields, List<CheckResultInterface> remarks,
                                               String origin ) throws KettlePluginException {
     RowMetaInterface rowMeta = new RowMeta();
@@ -340,7 +321,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
 
     // log progress if it is time to to so
     if ( checkFeedback( getLinesRead() ) ) {
-      logBasic( BaseMessages.getString( PKG, "DemoStep.Linenr", getLinesRead() ) ); // Some basic logging
+      logBasic( BaseMessages.getString( PKG, "ArrowStep.Linenr", getLinesRead() ) ); // Some basic logging
     }
 
     log.logBasic(data.outputRowMeta.toString());

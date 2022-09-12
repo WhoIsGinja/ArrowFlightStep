@@ -20,9 +20,8 @@
  *
  ******************************************************************************/
 
-package org.pentaho.di.sdk.samples.steps.demo;
+package org.pentaho.di.sdk.samples.steps.arrow;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.arrow.flight.FlightInfo;
@@ -62,36 +61,18 @@ import org.apache.arrow.vector.types.pojo.Field;
 
 import org.w3c.dom.Node;
 
-/**
- * This class is part of the demo step plug-in implementation.
- * It demonstrates the basics of developing a plug-in step for PDI.
- *
- * The demo step adds a new string field to the row stream and sets its
- * value to "Hello World!". The user may select the name of the new field.
- *
- * This class is the implementation of StepMetaInterface.
- * Classes implementing this interface need to:
- *
- * - keep track of the step settings
- * - serialize step settings both to xml and a repository
- * - provide new instances of objects implementing StepDialogInterface, StepInterface and StepDataInterface
- * - report on how the step modifies the meta-data of the row-stream (row structure and field types)
- * - perform a sanity-check on the settings provided by the user
- *
- */
-
 @Step(
         id = "ArrowFlightInput",
-        name = "Arrow Flight Input",
-        description = "",
-        image = "org/pentaho/di/sdk/samples/steps/demo/resources/demo.svg",
+        name = "ArrowStep.Name",
+        description = "ArrowStep.TooltipDesc",
+        image = "org/pentaho/di/sdk/samples/steps/arrow/resources/demo.svg",
         categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Input",
-        i18nPackageName = "org.pentaho.di.sdk.samples.steps.demo",
-        documentationUrl = "DemoStep.DocumentationURL",
-        casesUrl = "DemoStep.CasesURL",
-        forumUrl = "DemoStep.ForumURL"
+        i18nPackageName = "org.pentaho.di.sdk.samples.steps.arrow",
+        documentationUrl = "ArrowStep.DocumentationURL",
+        casesUrl = "ArrowStep.CasesURL",
+        forumUrl = "ArrowStep.ForumURL"
 )
-@InjectionSupported( localizationPrefix = "DemoStepMeta.Injection." )
+@InjectionSupported( localizationPrefix = "ArrowFlightStepMeta.Injection." )
 public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterface {
 
   /**
@@ -251,7 +232,7 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
     try {
       setOutputField( XMLHandler.getNodeValue( XMLHandler.getSubNode( stepnode, "outputfield" ) ) );
     } catch ( Exception e ) {
-      throw new KettleXMLException( "Demo plugin unable to read step info from XML node", e );
+      throw new KettleXMLException( "Arrow Flight plugin unable to read step info from XML node", e );
     }
   }
 
@@ -359,11 +340,11 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
     // See if there are input streams leading to this step!
     if ( input != null && input.length > 0 ) {
       cr = new CheckResult( CheckResult.TYPE_RESULT_OK,
-              BaseMessages.getString( PKG, "Demo.CheckResult.ReceivingRows.OK" ), stepMeta );
+              BaseMessages.getString( PKG, "Arrow.CheckResult.ReceivingRows.OK" ), stepMeta );
       remarks.add( cr );
     } else {
       cr = new CheckResult( CheckResult.TYPE_RESULT_ERROR,
-              BaseMessages.getString( PKG, "Demo.CheckResult.ReceivingRows.ERROR" ), stepMeta );
+              BaseMessages.getString( PKG, "Arrow.CheckResult.ReceivingRows.ERROR" ), stepMeta );
       remarks.add( cr );
     }
   }
