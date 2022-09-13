@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ArrowFlightStepData extends BaseStepData implements StepDataInterface {
+public class ArrowFlightInputStepData extends BaseStepData implements StepDataInterface {
 
   public ApacheFlightConnection connection;
   public FlightStream stream;
@@ -53,7 +53,7 @@ public class ArrowFlightStepData extends BaseStepData implements StepDataInterfa
 
   public ReadWriteLock inputLock = new ReentrantReadWriteLock();
 
-  public ArrowFlightStepData() {
+  public ArrowFlightInputStepData() {
     super();
   }
 

@@ -52,9 +52,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ArrowFlightStep extends BaseStep implements StepInterface {
+public class ArrowFlightInputStep extends BaseStep implements StepInterface {
 
-  private static final Class<?> PKG = ArrowFlightStepMeta.class; // for i18n purposes
+  private static final Class<?> PKG = ArrowFlightInputStepMeta.class; // for i18n purposes
 
   /**
    * The constructor should simply pass on its arguments to the parent class.
@@ -65,7 +65,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
    * @param t                 transformation description
    * @param dis               transformation executing
    */
-  public ArrowFlightStep(StepMeta s, StepDataInterface stepDataInterface, int c, TransMeta t, Trans dis ) {
+  public ArrowFlightInputStep(StepMeta s, StepDataInterface stepDataInterface, int c, TransMeta t, Trans dis ) {
     super( s, stepDataInterface, c, t, dis );
   }
 
@@ -91,8 +91,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
   public boolean init( StepMetaInterface smi, StepDataInterface sdi ) {
     try {
       // Casting to step-specific implementation classes is safe
-      ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
-      ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+      ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
+      ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
       if ( !super.init( meta, data ) ) {
 
@@ -134,8 +134,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
   }
 
   public void getData(StepMetaInterface smi, StepDataInterface sdi) {
-    ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
-    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+    ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
+    ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
 
     //TODO passar a receber da GUI, meta onde estao alocados
@@ -159,7 +159,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
    * @param fields  list that contains the names and types of the columns of each row
    * @returns RowMetaAndData structure that will contain the meta data of the input from the Flight Server
    * */
-  public static final RowMetaAndData buildRow(ArrowFlightStepMeta meta, List<Field> fields, List<CheckResultInterface> remarks,
+  public static final RowMetaAndData buildRow(ArrowFlightInputStepMeta meta, List<Field> fields, List<CheckResultInterface> remarks,
                                               String origin ) throws KettlePluginException {
     RowMetaInterface rowMeta = new RowMeta();
 
@@ -223,7 +223,7 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
 
 
   public void printInput( StepDataInterface sdi ) {
-    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+    ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
     for(Object[] row : data.input) {
       log.logBasic(Arrays.deepToString(row));
@@ -234,8 +234,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
 
     waitUntilTransformationIsStarted();
 
-    ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
-    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+    ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
+    ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
     Object[] row = null;
 
@@ -293,8 +293,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
   public synchronized boolean processRow( StepMetaInterface smi, StepDataInterface sdi ) throws KettleException {
 
     // safely cast the step settings (meta) and runtime info (data) to specific implementations
-    ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
-    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+    ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
+    ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
     Object[] r = null;
     Object[] bufferRow = null;
@@ -354,8 +354,8 @@ public class ArrowFlightStep extends BaseStep implements StepInterface {
   public void dispose( StepMetaInterface smi, StepDataInterface sdi ) {
 
     // Casting to step-specific implementation classes is safe
-    ArrowFlightStepMeta meta = (ArrowFlightStepMeta) smi;
-    ArrowFlightStepData data = (ArrowFlightStepData) sdi;
+    ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
+    ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
     // Add any step-specific initialization that may be needed here
     log.logBasic("client:" + data.connection.getClient());

@@ -73,14 +73,14 @@ import org.w3c.dom.Node;
         forumUrl = "ArrowStep.ForumURL"
 )
 @InjectionSupported( localizationPrefix = "ArrowFlightStepMeta.Injection." )
-public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterface {
+public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaInterface {
 
   /**
    *  The PKG member is used when looking up internationalized strings.
    *  The properties file with localized keys is expected to reside in
    *  {the package of the class specified}/messages/messages_{locale}.properties
    */
-  private static final Class<?> PKG = ArrowFlightStepMeta.class; // for i18n purposes
+  private static final Class<?> PKG = ArrowFlightInputStepMeta.class; // for i18n purposes
 
   private String[] fieldName;
 
@@ -101,7 +101,7 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
   /**
    * Constructor should call super() to make sure the base class has a chance to initialize properly.
    */
-  public ArrowFlightStepMeta() {
+  public ArrowFlightInputStepMeta() {
     super();
   }
 
@@ -116,7 +116,7 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
    * @return       new instance of a dialog for this step
    */
   public StepDialogInterface getDialog( Shell shell, StepMetaInterface meta, TransMeta transMeta, String name ) {
-    return new ArrowFlightStepDialog( shell, meta, transMeta, name );
+    return new ArrowFlightInputStepDialog( shell, meta, transMeta, name );
   }
 
   /**
@@ -132,14 +132,14 @@ public class ArrowFlightStepMeta extends BaseStepMeta implements StepMetaInterfa
    */
   public StepInterface getStep( StepMeta stepMeta, StepDataInterface stepDataInterface, int cnr, TransMeta transMeta,
                                 Trans disp ) {
-    return new ArrowFlightStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
+    return new ArrowFlightInputStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
   }
 
   /**
    * Called by PDI to get a new instance of the step data class.
    */
   public StepDataInterface getStepData() {
-    return new ArrowFlightStepData();
+    return new ArrowFlightInputStepData();
   }
 
   /**

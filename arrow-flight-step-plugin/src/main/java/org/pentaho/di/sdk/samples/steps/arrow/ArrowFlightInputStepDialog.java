@@ -47,19 +47,19 @@ import org.pentaho.di.ui.trans.step.BaseStepDialog;
 import org.pentaho.di.trans.step.BaseStepMeta;
 import org.pentaho.di.trans.step.StepDialogInterface;
 
-public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogInterface {
+public class ArrowFlightInputStepDialog extends BaseStepDialog implements StepDialogInterface {
 
   /**
    *  The PKG member is used when looking up internationalized strings.
    *  The properties file with localized keys is expected to reside in
    *  {the package of the class specified}/messages/messages_{locale}.properties
    */
-  private static Class<?> PKG = ArrowFlightStepMeta.class; // for i18n purposes
+  private static Class<?> PKG = ArrowFlightInputStepMeta.class; // for i18n purposes
 
   // this is the object the stores the step's settings
   // the dialog reads the settings from it when opening
   // the dialog writes the settings to it when confirmed
-  private ArrowFlightStepMeta meta;
+  private ArrowFlightInputStepMeta meta;
 
   // text field holding the name of the field to add to the row stream
   private LabelText wHostFieldName;
@@ -77,9 +77,9 @@ public class ArrowFlightStepDialog extends BaseStepDialog implements StepDialogI
    * @param transMeta  transformation description
    * @param sname    the step name
    */
-  public ArrowFlightStepDialog(Shell parent, Object in, TransMeta transMeta, String sname ) {
+  public ArrowFlightInputStepDialog(Shell parent, Object in, TransMeta transMeta, String sname ) {
     super( parent, (BaseStepMeta) in, transMeta, sname );
-    meta = (ArrowFlightStepMeta) in;
+    meta = (ArrowFlightInputStepMeta) in;
   }
 
   /**
