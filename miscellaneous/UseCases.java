@@ -20,11 +20,9 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
 import org.apache.arrow.flight.*;
-//import com.google.common.base.Preconditions.checkArgument;
 import org.apache.arrow.flight.auth.BasicServerAuthHandler;
 import org.apache.arrow.memory.BufferAllocator;
 import org.apache.arrow.memory.RootAllocator;
-//import org.apache.commons.lang3.tuple.Pair;
 import org.apache.arrow.vector.VarCharVector;
 import org.apache.arrow.vector.types.pojo.ArrowType;
 import org.apache.arrow.vector.types.pojo.Field;

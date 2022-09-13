@@ -99,10 +99,10 @@ public class ApacheFlightConnection implements AutoCloseable {
                     row_index = 0;
                     Object[] row = new Object[rowLen];
 
-                    Iterator var7 = vectorSchemaRootReceived.getFieldVectors().iterator();
+                    Iterator fieldsIterator = vectorSchemaRootReceived.getFieldVectors().iterator();
 
-                    while (var7.hasNext()) {
-                        FieldVector v = (FieldVector) var7.next();
+                    while (fieldsIterator.hasNext()) {
+                        FieldVector v = (FieldVector) fieldsIterator.next();
                         row[row_index] = v.getObject(i);
                         row_index++;
                     }
@@ -150,10 +150,10 @@ public class ApacheFlightConnection implements AutoCloseable {
                     for (int i = 0; i < vectorSchemaRootReceived.getRowCount(); ++i) {
                         ArrayList<Object> linha = new ArrayList<Object>(schema.getFields().size());
 
-                        Iterator var7 = vectorSchemaRootReceived.getFieldVectors().iterator();
+                        Iterator fieldsIterator = vectorSchemaRootReceived.getFieldVectors().iterator();
 
-                        while (var7.hasNext()) {
-                            FieldVector v = (FieldVector) var7.next();
+                        while (fieldsIterator.hasNext()) {
+                            FieldVector v = (FieldVector) fieldsIterator.next();
                             linha.add(v.getObject(i));
                         }
 
@@ -192,23 +192,6 @@ public class ApacheFlightConnection implements AutoCloseable {
         System.out.println("===FLIGHTS INFO===");
         flightInfosBefore.forEach(t -> System.out.println(t));
     }
-
-    //to delete, but could prove useful
-    public static void insertTest(String filePath) {
-        Path path = Paths.get(filePath);
-        try(
-                BufferAllocator rootAllocator = new RootAllocator();
-                ArrowStreamReader reader = new ArrowStreamReader(new ByteArrayInputStream(
-                        Files.readAllBytes(path)), rootAllocator)
-        ) {
-            while(reader.loadNextBatch()){
-                System.out.print(reader.getVectorSchemaRoot().contentToTSVString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void close() throws Exception {

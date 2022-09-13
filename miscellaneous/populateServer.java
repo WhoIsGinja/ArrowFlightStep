@@ -58,8 +58,6 @@ public class populateServer {
         //TODO passar isto para funcao
         connect.showFlightData("profiles");
 
-        System.out.println("wewewewewewewewee");
-
         try (BufferAllocator rootAllocator = new RootAllocator()) {
             Field name = new Field("name", FieldType.nullable(new ArrowType.Utf8()), null);
             Field age = new Field("age", FieldType.nullable(new ArrowType.Int(32, true)), null);
