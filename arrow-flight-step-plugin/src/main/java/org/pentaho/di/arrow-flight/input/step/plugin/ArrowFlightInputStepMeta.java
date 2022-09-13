@@ -65,7 +65,7 @@ import org.w3c.dom.Node;
         id = "ArrowFlightInput",
         name = "ArrowStep.Name",
         description = "ArrowStep.TooltipDesc",
-        image = "org/pentaho/di/sdk/samples/steps/arrow/resources/demo.svg",
+        image = "org/pentaho/di/arrow-flight/input/step/plugin/resources/demo.svg",
         categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Input",
         i18nPackageName = "org.pentaho.di.sdk.samples.steps.arrow",
         documentationUrl = "ArrowStep.DocumentationURL",
@@ -116,7 +116,7 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    * @return       new instance of a dialog for this step
    */
   public StepDialogInterface getDialog( Shell shell, StepMetaInterface meta, TransMeta transMeta, String name ) {
-    return new ArrowFlightInputStepDialog( shell, meta, transMeta, name );
+    return new org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStepDialog( shell, meta, transMeta, name );
   }
 
   /**
@@ -132,14 +132,14 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    */
   public StepInterface getStep( StepMeta stepMeta, StepDataInterface stepDataInterface, int cnr, TransMeta transMeta,
                                 Trans disp ) {
-    return new ArrowFlightInputStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
+    return new org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStep( stepMeta, stepDataInterface, cnr, transMeta, disp );
   }
 
   /**
    * Called by PDI to get a new instance of the step data class.
    */
   public StepDataInterface getStepData() {
-    return new ArrowFlightInputStepData();
+    return new org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStepData();
   }
 
   /**
@@ -163,7 +163,7 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
   public void setSchema() {
     //TODO deixar de estar hardcoded
     BufferAllocator allocator = new RootAllocator();
-    ApacheFlightConnection connection = ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
+    org.pentaho.di.sdk.samples.steps.arrow.ApacheFlightConnection connection = org.pentaho.di.sdk.samples.steps.arrow.ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
 
     FlightInfo info = connection.getFlightInfo("more_profiles");
 

@@ -54,12 +54,12 @@ public class ArrowFlightInputStepDialog extends BaseStepDialog implements StepDi
    *  The properties file with localized keys is expected to reside in
    *  {the package of the class specified}/messages/messages_{locale}.properties
    */
-  private static Class<?> PKG = ArrowFlightInputStepMeta.class; // for i18n purposes
+  private static Class<?> PKG = org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStepMeta.class; // for i18n purposes
 
   // this is the object the stores the step's settings
   // the dialog reads the settings from it when opening
   // the dialog writes the settings to it when confirmed
-  private ArrowFlightInputStepMeta meta;
+  private org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStepMeta meta;
 
   // text field holding the name of the field to add to the row stream
   private LabelText wHostFieldName;
@@ -79,7 +79,7 @@ public class ArrowFlightInputStepDialog extends BaseStepDialog implements StepDi
    */
   public ArrowFlightInputStepDialog(Shell parent, Object in, TransMeta transMeta, String sname ) {
     super( parent, (BaseStepMeta) in, transMeta, sname );
-    meta = (ArrowFlightInputStepMeta) in;
+    meta = (org.pentaho.di.sdk.samples.steps.arrow.ArrowFlightInputStepMeta) in;
   }
 
   /**
