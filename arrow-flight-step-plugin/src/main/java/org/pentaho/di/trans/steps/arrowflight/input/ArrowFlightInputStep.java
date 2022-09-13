@@ -122,7 +122,6 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
       }
 
       data.outputRowMeta = outputRow.getRowMeta();
-      log.logBasic(data.outputRowMeta.toString());
 
 
       return true;
@@ -150,7 +149,6 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
     data.rowLimit = data.input.size() - 1;
     data.rowsWritten = 0L;
 
-    log.logBasic("FLIGHT ROWS NO: " + data.rowLimit);
   }
 
   /**
@@ -178,11 +176,9 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
     System.out.println(Arrays.toString(meta.getFieldName()));
 
 
-    System.out.println("tamanho fields: " + fields.size());
     for ( int i = 0; i < fields.size(); i++ ) {
 
       int valtype = getValType(fields.get(i).getType().toString());
-      System.out.println("FIELDTYPE: " + fields.get(i).getType().toString() + "  VALTYPE: " + valtype);
 
       if ( fields.get(i).getType() != null ) {
         ValueMetaInterface valueMeta = ValueMetaFactory.createValueMeta( meta.getFieldName()[i], valtype ); // build a value!
@@ -216,7 +212,6 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
 
 
     int valtype = ValueMetaFactory.getIdForValueMeta(pdiDataType);
-    System.out.println("type number: " + valtype);
     return valtype;
   }
 
@@ -261,7 +256,6 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
       ValueMetaInterface stringMeta =
               ValueMetaFactory.cloneValueMeta( valueMeta, ValueMetaInterface.TYPE_STRING );
 
-      log.logBasic(" value meta " + valueMeta.toString());
 
       r[i] = valueMeta.convertData(stringMeta, bufferRow[i].toString());
     }
@@ -312,10 +306,8 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
     }
 
 
-    log.logBasic("=======SHOWING DATA==========");
 
     for(Object o: r) {
-      log.logBasic("conteudo: " + o);
     }
 
 
@@ -324,14 +316,8 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
       logBasic( BaseMessages.getString( PKG, "ArrowStep.Linenr", getLinesRead() ) ); // Some basic logging
     }
 
-    log.logBasic(data.outputRowMeta.toString());
-    log.logBasic(Arrays.deepToString(r));
-
     putRow( data.outputRowMeta, r );
     data.rowsWritten++;
-
-    log.logBasic("rows written: " + data.rowsWritten);
-
 
     // indicate that processRow() should be called again
     return true;
@@ -358,12 +344,9 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
     ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
     // Add any step-specific initialization that may be needed here
-    log.logBasic("client:" + data.connection.getClient());
     data.connection.close();
 
-    log.logBasic("antes dispose");
     // Call superclass dispose()
     super.dispose( meta, data );
-    log.logBasic("depois dispose");
   }
 }

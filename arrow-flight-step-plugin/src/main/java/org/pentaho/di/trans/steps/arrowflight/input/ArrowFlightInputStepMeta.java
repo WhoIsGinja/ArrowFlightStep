@@ -296,7 +296,6 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
 
     List<Field> fields = schema.getFields();
 
-    //System.out.println("GET FIELDS: "  + Arrays.toString(fieldName));
     for(int i = 0; i < fields.size(); i++) {
       // a value meta object contains the meta data for a field
       ValueMetaInterface v = new ValueMetaString( fields.get(i).getName() );
