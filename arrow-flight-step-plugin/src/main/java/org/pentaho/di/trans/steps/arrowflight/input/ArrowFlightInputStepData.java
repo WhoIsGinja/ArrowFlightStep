@@ -20,7 +20,7 @@
 *
 ******************************************************************************/
 
-package org.pentaho.di.sdk.arrow.flight.step.plugin;
+package org.pentaho.di.trans.steps.arrowflight.input;
 
 import org.pentaho.di.core.row.RowMetaInterface;
 import org.pentaho.di.trans.step.BaseStepData;

@@ -1,4 +1,4 @@
-package org.pentaho.di.sdk.arrow.flight.step.plugin;
+package org.pentaho.di.trans.steps.arrowflight.input;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

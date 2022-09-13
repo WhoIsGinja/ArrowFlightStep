@@ -20,7 +20,7 @@
  *
  ******************************************************************************/
 
-package org.pentaho.di.sdk.arrow.flight.step.plugin;
+package org.pentaho.di.trans.steps.arrowflight.input;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ import org.w3c.dom.Node;
         id = "ArrowFlightInput",
         name = "ArrowStep.Name",
         description = "ArrowStep.TooltipDesc",
-        image = "org/pentaho/di/arrow-flight/input/step/plugin/resources/demo.svg",
+        image = "org/pentaho/di/trans/steps/arrowflight/input/resources/demo.svg",
         categoryDescription = "i18n:org.pentaho.di.trans.step:BaseStep.Category.Input",
         i18nPackageName = "org.pentaho.di.sdk.samples.steps.arrow",
         documentationUrl = "ArrowStep.DocumentationURL",
@@ -116,7 +116,7 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    * @return       new instance of a dialog for this step
    */
   public StepDialogInterface getDialog( Shell shell, StepMetaInterface meta, TransMeta transMeta, String name ) {
-    return new org.pentaho.di.sdk.arrow.flight.step.plugin.ArrowFlightInputStepDialog( shell, meta, transMeta, name );
+    return new ArrowFlightInputStepDialog( shell, meta, transMeta, name );
   }
 
   /**
@@ -139,7 +139,7 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    * Called by PDI to get a new instance of the step data class.
    */
   public StepDataInterface getStepData() {
-    return new org.pentaho.di.sdk.arrow.flight.step.plugin.ArrowFlightInputStepData();
+    return new ArrowFlightInputStepData();
   }
 
   /**

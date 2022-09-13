@@ -20,7 +20,7 @@
  *
  ******************************************************************************/
 
-package org.pentaho.di.sdk.arrow.flight.step.plugin;
+package org.pentaho.di.trans.steps.arrowflight.input;
 
 import org.pentaho.di.core.CheckResult;
 import org.pentaho.di.core.CheckResultInterface;

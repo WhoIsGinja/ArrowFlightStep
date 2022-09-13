@@ -20,12 +20,12 @@
 *
 ******************************************************************************/
 
-package org.pentaho.di.sdk.samples.steps.arrow;
+package org.pentaho.di.trans.steps.arrowflight.input;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class ArrowFlightStepDataTest {
+public class ArrowFlightInputStepDataTest {
 
 
 }
