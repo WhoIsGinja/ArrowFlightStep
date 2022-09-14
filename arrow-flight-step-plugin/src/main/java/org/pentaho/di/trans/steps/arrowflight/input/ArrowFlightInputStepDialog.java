@@ -248,7 +248,7 @@ public class ArrowFlightInputStepDialog extends BaseStepDialog implements StepDi
    */
   private void populateDialog() {
     wStepname.selectAll();
-    wHostFieldName.setText( meta.getOutputField() );
+    wHostFieldName.setText( meta.getHostField() );
     wPortFieldName.setText( meta.getPortField() );
     wPathFieldName.setText( meta.getPathField() );
   }
@@ -274,7 +274,7 @@ public class ArrowFlightInputStepDialog extends BaseStepDialog implements StepDi
     // Setting to step name from the dialog control
     stepname = wStepname.getText();
     // Setting the  settings to the meta object
-    meta.setOutputField( wHostFieldName.getText() );
+    meta.setHostField( wHostFieldName.getText() );
     meta.setPortField( wPortFieldName.getText() );
     meta.setPathField( wPathFieldName.getText() );
     // close the SWT dialog window

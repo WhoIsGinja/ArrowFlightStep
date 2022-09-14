@@ -147,25 +147,24 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    * to sensible defaults. The values set here will be used by Spoon when a new step is created.
    */
   public void setDefault() {
-    setOutputField( "demo_field" );
-    setPortField( "8081" );
-    setPathField( "profiles" );
+    setHostField( "localhost" );
+    setPortField( "8815" );
+    setPathField( "path" );
   }
 
 
-  public String getOutputField() {
+  public String getHostField() {
     return outputField;
   }
-  public void setOutputField( String outputField ) {
+  public void setHostField( String outputField ) {
     this.outputField = outputField;
   }
 
   public void setSchema() {
-    //TODO deixar de estar hardcoded
     BufferAllocator allocator = new RootAllocator();
-    ApacheFlightConnection connection = ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
+    ApacheFlightConnection connection = ApacheFlightConnection.createFlightClient(allocator, outputField, Integer.parseInt(portField));
 
-    FlightInfo info = connection.getFlightInfo("more_profiles");
+    FlightInfo info = connection.getFlightInfo(pathField);
 
     FlightStream stream = connection.getFlightStream(info.getDescriptor().getPath().get(0));
     schema = stream.getSchema();
@@ -232,7 +231,7 @@ public class ArrowFlightInputStepMeta extends BaseStepMeta implements StepMetaIn
    */
   public void loadXML( Node stepnode, List<DatabaseMeta> databases, IMetaStore metaStore ) throws KettleXMLException {
     try {
-      setOutputField( XMLHandler.getNodeValue( XMLHandler.getSubNode( stepnode, "outputfield" ) ) );
+      setHostField( XMLHandler.getNodeValue( XMLHandler.getSubNode( stepnode, "outputfield" ) ) );
       setPortField( XMLHandler.getNodeValue( XMLHandler.getSubNode( stepnode, "portfield" ) ) );
       setPathField( XMLHandler.getNodeValue( XMLHandler.getSubNode( stepnode, "pathfield" ) ) );
     } catch ( Exception e ) {
