@@ -6,7 +6,7 @@ License: Apache 2.0
 
 Last release: https://github.com/WhoIsGinja/ArrowFlightStep/releases/tag/v0.1
 
-Binary: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/kettle-sdk-step-plugin-8.1.0.0-365.zip
+Binary: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
 
 ## Obtaining Binary
 
@@ -42,11 +42,11 @@ wget https://sourceforge.net/projects/pentaho/files/Pentaho-9.3/client-tools/pdi
 unzip pdi-ce-client-9.3.0.0-428
 
 # download the plugin package and  unzip its contents
-wget https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/kettle-sdk-step-plugin-8.1.0.0-365.zip
-unzip arrow-flight-step-plugin-0.01.zip 
+wget https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
+unzip arrow-flight-step-plugin-8.1.0.0-365.zip
 
 # move plugin file (and libs) to  pentaho pdi's data-integration/plugins directory
-mv arrow-flight-step-plugin-0.01  pdi-ce-client-9.3.0.0-428/data-integration/plugins/
+mv arrow-flight-step-plugin-8.1.0.0-365  pdi-ce-client-9.3.0.0-428/data-integration/plugins/
 
 cd pdi-ce-client-9.3.0.0-428/data-integration/
 ./spoon.sh
