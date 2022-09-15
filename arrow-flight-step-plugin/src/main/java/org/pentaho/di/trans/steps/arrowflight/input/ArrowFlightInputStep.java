@@ -102,8 +102,8 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
 
       //establishArrowConnection(meta, data);
       BufferAllocator allocator = new RootAllocator();
-      //TODO deixar de ser hadcoded, para receber da GUI (alocados no meta)
-      data.connection = ApacheFlightConnection.createFlightClient(allocator, "localhost", 8815);
+
+      data.connection = ApacheFlightConnection.createFlightClient(allocator, meta.getHostField(), Integer.parseInt(meta.getPortField()));
 
       getData(meta, data);
 
@@ -136,9 +136,7 @@ public class ArrowFlightInputStep extends BaseStep implements StepInterface {
     ArrowFlightInputStepMeta meta = (ArrowFlightInputStepMeta) smi;
     ArrowFlightInputStepData data = (ArrowFlightInputStepData) sdi;
 
-
-    //TODO passar a receber da GUI, meta onde estao alocados
-    FlightInfo info = data.connection.getFlightInfo("more_profiles");
+    FlightInfo info = data.connection.getFlightInfo(meta.getPathField());
 
     data.stream = data.connection.getFlightStream(info.getDescriptor().getPath().get(0));
 
