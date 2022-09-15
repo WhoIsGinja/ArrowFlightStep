@@ -35,7 +35,7 @@ When Pentaho opens, to use the Arrow Flight Input Step, create a transformation 
   
 #### Shell command-line example to install the required software:
 ```
- # download pentaho distro and unzip to some dir
+# download pentaho distro and unzip to some dir
 mkdir pentaho
 cd pentaho/
 wget https://sourceforge.net/projects/pentaho/files/Pentaho-9.3/client-tools/pdi-ce-9.3.0.0-428.zip/download
