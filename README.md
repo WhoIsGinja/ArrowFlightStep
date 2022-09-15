@@ -6,7 +6,7 @@ License: Apache 2.0
 
 Last release: https://github.com/WhoIsGinja/ArrowFlightStep/releases/tag/v0.1
 
-Binary: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
+Build: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
 
 ## Obtaining Binary
 
@@ -22,7 +22,7 @@ to access it:
 mvn clean install
 ```
 
-## Building
+## Installing Software
 
 To download PDI, access the following link and download the 9.3 version: https://sourceforge.net/projects/pentaho/
 
