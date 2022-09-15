@@ -42,7 +42,7 @@ wget https://sourceforge.net/projects/pentaho/files/Pentaho-9.3/client-tools/pdi
 unzip pdi-ce-client-9.3.0.0-428
 
 # download the plugin package and  unzip its contents
-wget https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-fllght-step-plugin-0.01.zip
+wget https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/kettle-sdk-step-plugin-8.1.0.0-365.zip
 unzip arrow-flight-step-plugin-0.01.zip 
 
 # move plugin file (and libs) to  pentaho pdi's data-integration/plugins directory
