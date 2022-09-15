@@ -22,7 +22,7 @@ to access it:
 mvn clean install
 ```
 
-## Installing Software
+## Building
 
 To download PDI, access the following link and download the 9.3 version: https://sourceforge.net/projects/pentaho/
 
