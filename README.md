@@ -8,7 +8,7 @@ Last release:
 
 Binary: 
 
-## Installing and Running
+## Obtaining Binary
 
 #### Pre-requisites for building the project:
 * Maven, version 3+
@@ -22,7 +22,9 @@ to access it:
 mvn clean install
 ```
 
-To download PDI access the following link and download the 9.3 version: https://sourceforge.net/projects/pentaho/
+## Installing Software
+
+To download PDI, access the following link and download the 9.3 version: https://sourceforge.net/projects/pentaho/
 
 After installing Pentaho, access its location, and in the plugins folder create
 a directory. Inside the directory put a version.xml file (can be pasted from other plugin directories), and the content of the .zip file.
@@ -30,3 +32,22 @@ a directory. Inside the directory put a version.xml file (can be pasted from oth
 To run Pentaho simply execute the Spoon.bat file by double clicking it, or running an executable on the windows command prompt.
 
 When Pentaho opens, to use the Arrow Flight Input Step, create a transformation and in the ```Design``` tab access the ```Input``` dropdown menu and drag and drop it into the transformation.
+  
+#### Shell command-line example to install the required software:
+```
+ # download pentaho distro and unzip to some dir
+mkdir pentaho
+cd pentaho/
+wget https://sourceforge.net/projects/pentaho/files/Pentaho-9.3/client-tools/pdi-ce-9.3.0.0-428.zip/download
+unzip pdi-ce-client-9.3.0.0-428
+
+# download the plugin package and  unzip its contents
+wget https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-fllght-step-plugin-0.01.zip
+unzip arrow-flight-step-plugin-0.01.zip 
+
+# move plugin file (and libs) to  pentaho pdi's data-integration/plugins directory
+mv arrow-flight-step-plugin-0.01  pdi-ce-client-9.3.0.0-428/data-integration/plugins/
+
+cd pdi-ce-client-9.3.0.0-428/data-integration/
+./spoon.sh
+```
