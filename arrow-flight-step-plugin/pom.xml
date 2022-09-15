@@ -7,7 +7,7 @@
     <artifactId>kettle-sdk-plugin-parent</artifactId>
     <version>8.1.0.0-365</version>
   </parent>
-  <artifactId>kettle-sdk-step-plugin</artifactId>
+  <artifactId>arrow-flight-step-plugin</artifactId>
   <version>8.1.0.0-365</version>
   <name>Pentaho Data Integration SDK Step Plugin</name>
   <dependencyManagement>
