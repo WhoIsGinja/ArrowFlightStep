@@ -4,9 +4,9 @@ A PDI (Pentaho Data Integration) step used to communicate with a Flight Server a
 
 License: Apache 2.0
 
-Last release:
+Last release: https://github.com/WhoIsGinja/ArrowFlightStep/releases/tag/v0.1
 
-Binary: 
+Binary: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/kettle-sdk-step-plugin-8.1.0.0-365.zip
 
 ## Obtaining Binary
 
