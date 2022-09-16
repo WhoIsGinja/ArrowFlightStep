@@ -6,9 +6,9 @@ License: Apache 2.0
 
 Last release: https://github.com/WhoIsGinja/ArrowFlightStep/releases/tag/v0.1
 
-Build: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
+Binary: https://github.com/WhoIsGinja/ArrowFlightStep/releases/download/v0.1/arrow-flight-step-plugin-8.1.0.0-365.zip
 
-## Obtaining Binary
+## Building
 
 #### Pre-requisites for building the project:
 * Maven, version 3+
